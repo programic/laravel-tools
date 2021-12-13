@@ -1,0 +1,48 @@
+{
+    "name": "programic/laravel-tools",
+    "license": "proprietary",
+    "type": "package",
+    "description": "Laravel extension",
+    "keywords": [
+        "programic",
+        "laravel"
+    ],
+    "readme": "README.md",
+    "authors": [
+        {
+            "name": "Programic",
+            "email": "development@programic.com",
+            "homepage": "https://programic.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "^5.6",
+        "laravel/framework" : "^5.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Programic\\Tools\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Programic\\Tools\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Programic\\Tools\\ToolsServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
