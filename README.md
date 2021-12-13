@@ -6,19 +6,25 @@
 
 This package is a Laravel extension
 
-### Installation
+## Installation
 This package requires PHP 7.4 and Laravel 5.8 or higher.
 
 ```
 composer require programic/laravel-tools
 ```
 
-### Testing
+## Usage
+
+### Mysql support
+Add ``Mysql8ServiceProvider`` in your ``config/app.php`` to add mysql 8 support for migrations
+
+
+## Testing
 ```bash
 composer test
 ```
 
-### Changelog
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
