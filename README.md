@@ -7,7 +7,7 @@
 This package is a Laravel extension
 
 ## Installation
-This package requires PHP 7.4 and Laravel 5.8 or higher.
+This package requires PHP 5.6 and Laravel 5.0 or higher.
 
 ```
 composer require programic/laravel-tools

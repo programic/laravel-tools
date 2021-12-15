@@ -2,6 +2,8 @@
 
 namespace Programic\Tools\Middleware;
 
+use Sentry\State\Scope;
+use Programic\Tools\ToolsServiceProvider;
 use Closure;
 
 class SentryContext
@@ -9,20 +11,20 @@ class SentryContext
     public function handle($request, Closure $next)
     {
         if (app()->bound('sentry')) {
-            app('sentry')->configureScope(function (\Sentry\State\Scope $scope) {
+            app('sentry')->configureScope(function (Scope $scope) {
                 if (auth()->check()) {
                     $user = auth()->user();
 
                     $scope->setUser([
                         'id' => $user->id,
                         'email' => $user->email,
-                        'plan' => $user->plan
                     ]);
                 }
 
                 $scope
-                    ->setTags([
-                        'laravel' => app()->version(),
+                    ->setContext('Laravel', [
+                        'version' => app()->version(),
+                        'Tools version' => ToolsServiceProvider::VERSION,
                     ]);
 
             });
