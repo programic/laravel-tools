@@ -15,6 +15,19 @@ composer require programic/laravel-tools
 
 ## Usage
 
+### Sentry
+Replace report method in ``App\Exceptions\Handler``
+```php
+public function report(Exception $exception)
+{
+    if ($this->shouldReport($exception) && app()->bound('sentry')) {
+        app('sentry')->captureException($exception);
+    }
+
+    parent::report($exception);
+}
+```
+
 ### Mysql support
 Add ``Mysql8ServiceProvider`` in your ``config/app.php`` to add mysql 8 support for migrations
 

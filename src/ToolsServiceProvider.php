@@ -4,6 +4,7 @@ namespace Programic\Tools;
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
+use Programic\Tools\Middleware\SentryContext;
 
 class ToolsServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,7 @@ class ToolsServiceProvider extends ServiceProvider
      */
     public function boot(Kernel $kernel)
     {
-        $kernel->pushMiddleware(Programic\Tools\Middleware\SentryContext::class);
+        $kernel->pushMiddleware(SentryContext::class);
     }
 
 
