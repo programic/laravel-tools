@@ -12,9 +12,9 @@ class SentryContext
     {
         if (app()->bound('sentry')) {
             app('sentry')->configureScope(function (Scope $scope) {
-                if (auth()->check()) {
-                    $user = auth()->user();
+                $user = auth()->user();
 
+                if ($user) {
                     $scope->setUser([
                         'id' => $user->id,
                         'email' => $user->email,
