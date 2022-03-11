@@ -1,6 +1,7 @@
 # Programic - Laravel tools
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/programic/laravel-tools.svg?style=flat-square)](https://packagist.org/packages/programic/laravel-tools)
+[![Tests](https://github.com/programic/laravel-tools/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/programic/laravel-tools/actions/workflows/tests.yml)
 ![](https://github.com/programic/laravel-tools/workflows/Run%20Tests/badge.svg?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/programic/laravel-tools.svg?style=flat-square)](https://packagist.org/packages/programic/laravel-tools)
 
