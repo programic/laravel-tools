@@ -23,7 +23,7 @@ class ToolsController extends Controller
                     'label' => "queue",
                     'status' => $status,
                     'notificationMessage' => "Queue ($name) seems to be filling up",
-                    'shortSummary' => $count,
+                    'shortSummary' => "$count jobs",
                     'meta' => $queue->map(function ($event) {
                         $eventName = str_replace('\\\\', '\\', (trim($event->event, '"')));
 
