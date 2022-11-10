@@ -11,26 +11,37 @@ class ToolsController extends Controller
 {
     public function ohdear(QueueSummary $queueSummary): JsonResponse
     {
+        $results = $queueSummary->all();
+        $treshold = 100;
+
         return response()->json([
             'finishedAt' => now()->timestamp,
-            'checkResults' => $queueSummary->all()->map(function ($queue) {
+            'checkResults' => $results->map(function ($queue) use ($treshold) {
                 $name = $queue[0]->queue;
                 $count = $queue->sum('count');
-                $status = $count > 100 ? 'warning' : 'ok';
+                $status = $count > $treshold ? 'warning' : 'ok';
+                $notificationMessage = 'Queue is fine';
+
+                if ($status === 'warning') {
+                    $notificationMessage = "Queue ($name) seems to be filling up";
+                }
 
                 return [
                     'name' => "Queue $name",
-                    'label' => "queue",
+                    'label' => $name,
                     'status' => $status,
-                    'notificationMessage' => "Queue ($name) seems to be filling up",
-                    'shortSummary' => "$count jobs",
-                    'meta' => $queue->map(function ($event) {
-                        $eventName = str_replace('\\\\', '\\', (trim($event->event, '"')));
+                    'notificationMessage' => $notificationMessage,
+                    'shortSummary' => "$count / $treshold jobs",
+                    'meta' => $queue->mapWithKeys(function ($event) {
+                        if (isset($event->event)) {
+                            $eventName = str_replace('\\\\', '\\', (trim($event->event, '"')));
 
-                        return [
-                            'event' => $eventName,
-                            'count' => $event->count,
-                        ];
+                            return [
+                                $eventName => $event->count,
+                            ];
+                        }
+
+                        return [];
                     })
                 ];
             }),
