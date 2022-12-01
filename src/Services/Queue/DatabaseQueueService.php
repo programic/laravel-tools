@@ -13,7 +13,7 @@ class DatabaseQueueService extends QueueService implements QueueSummary
         return $this->format(
             DB::table('queue_jobs')
                 ->select(DB::raw('COUNT(0) as count, queue, JSON_EXTRACT(payload, "$.displayName") as event'))
-                ->where('available_at', '>', DB::raw('UNIX_TIMESTAMP(NOW())'))
+//                ->where('available_at', '>', DB::raw('UNIX_TIMESTAMP(NOW())'))
                 ->groupByRaw('queue, JSON_EXTRACT(payload, "$.displayName")')
                 ->get()
                 ->groupBy('queue')
