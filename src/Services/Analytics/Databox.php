@@ -27,6 +27,10 @@ class Databox implements AnalyticsClient
             $count = $queue->sum('count');
 
             foreach ($queue as $item) {
+                if (!isset($item->event)) {
+                    continue;
+                }
+
                 $postData[] = [
                     "\$queue_{$item->queue}" => $item->count,
                     'event' => str_replace('\\\\', '\\', (trim($item->event, '"'))),
