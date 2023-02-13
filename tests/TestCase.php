@@ -1,11 +1,8 @@
 <?php
 
-namespace Programic\LaravelConvertCaseMiddleware\Tests;
+namespace Programic\Tools\Tests;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
+    //
 }
