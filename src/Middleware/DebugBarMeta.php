@@ -11,6 +11,10 @@ class DebugBarMeta
 {
     public function handle($request, Closure $next): Response
     {
+        if (! Debugbar::isEnabled()) {
+            return $next($request);
+        }
+
         /** @var JsonResponse $response */
         $response = $next($request);
 
