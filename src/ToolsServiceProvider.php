@@ -2,19 +2,13 @@
 
 namespace Programic\Tools;
 
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Programic\Tools\Console\Commands\SendQueueAnalyticsCommand;
-use Programic\Tools\Contracts\AnalyticsClient;
-use Programic\Tools\Contracts\QueueSummary;
-use Programic\Tools\Controllers\ToolsController;
 use Programic\Tools\Middleware\SentryContext;
-use Programic\Tools\Services\Analytics\Databox;
 
 class ToolsServiceProvider extends ServiceProvider
 {
-    const VERSION = 1.1;
+    const VERSION = 3.0;
     private $middlewareGroups = ['web', 'api'];
 
     /**
@@ -30,26 +24,10 @@ class ToolsServiceProvider extends ServiceProvider
             }
         }
 
-        $this->app->bind(QueueSummary::class, function () {
-            $instance = 'Programic\Tools\Services\Queue\\' . ucfirst(config('queue.default')). 'QueueService';
-            if (class_exists($instance)) {
-                return new $instance();
-            }
-
-            throw new \ErrorException(ucfirst(config('queue.default')) . ' queue health check not supported');
-        });
-
-        $this->app['router']->get('ohdear-health-check', [ToolsController::class, 'ohdear']);
-
-        $databoxToken = config('services.databox.token');
-
-        if ($databoxToken) {
-            $this->app->singleton(AnalyticsClient::class, fn () => new Databox($databoxToken));
-
-            $this->app->booted(function () {
-                $schedule = $this->app->make(Schedule::class);
-                $schedule->command(SendQueueAnalyticsCommand::class)->everyMinute()->withoutOverlapping();
-            });
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/debugbar.php' => config_path('debugbar.php'),
+            ], 'debugbar-config');
         }
     }
 
@@ -60,8 +38,6 @@ class ToolsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->commands([
-           SendQueueAnalyticsCommand::class,
-        ]);
+        //
     }
 }

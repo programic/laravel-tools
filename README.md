@@ -32,6 +32,11 @@ public function report(Exception $exception)
 ### Mysql support
 Add ``Mysql8ServiceProvider`` in your ``config/app.php`` to add mysql 8 support for migrations
 
+### Add debug data to api responses 
+Add ``Programic\Tools\Middleware\DebugBarMeta`` as middleware in your ``App/Http/Kernel.php`` API group to add debug data in every response 
+
+#### Vue package
+Use our vue plugin to add this debug data to the Vue Devtools: https://github.com/programic/api-debugbar-vue-devtools
 
 ## Testing
 ```bash
