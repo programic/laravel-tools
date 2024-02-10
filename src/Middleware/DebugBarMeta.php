@@ -18,6 +18,10 @@ class DebugBarMeta
         /** @var JsonResponse $response */
         $response = $next($request);
 
+        if (! $response instanceof JsonResponse) {
+            return $response;
+        }
+
         $data = $response->getData();
 
         $debugData = new \StdClass;
