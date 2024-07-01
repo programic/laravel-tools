@@ -17,6 +17,14 @@ composer require programic/laravel-tools
 ## Usage
 
 ### Sentry
+#### Laravel 11+
+Add this chain to the Application in ``bootstrap/app.php``
+```php
+->withExceptions(function (Exceptions $exceptions) {
+    Integration::handles($exceptions);
+})
+```
+#### Laravel 8 - 10
 Replace report method in ``App\Exceptions\Handler``
 ```php
 public function report(Exception $exception)
